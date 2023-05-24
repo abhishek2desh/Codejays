@@ -43,16 +43,13 @@ int main(int argc, char** argv) {
        if (result.count("rename")) {
             std::string folderPath = result["rename"].as<std::string>();
             std::string prefix = "new_image";
-           try {
-                if (!std::filesystem::exists(folderPath)) {
-                    throw std::runtime_error("Folder path does not exist.");
-                }
-
-                imageManager.renameFiles(folderPath, prefix);
-                std::cout << "Files renamed successfully." << std::endl;
-            } catch (const std::exception& e) {
-                //std::cerr << "Error renaming files: " << e.what() << std::endl;
+       
+            if (!std::filesystem::exists(folderPath)) {
+                throw std::runtime_error("Folder path does not exist.");
             }
+
+            imageManager.renameFiles(folderPath, prefix);
+            std::cout << "Files renamed successfully." << std::endl;
         }
 
         if (result.count("convert")) {

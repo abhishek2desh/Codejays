@@ -3,6 +3,7 @@
 #include <filesystem>
 #include <fstream>
 #include <opencv2/opencv.hpp>
+#include <string>
 
 using namespace cv;
 using namespace std;
@@ -17,8 +18,8 @@ bool compareFileSize(const std::string& filePath1, const std::string& filePath2)
     if (!file1 || !file2) {
         return false;
     }
-
-    return file1.tellg() == file2.tellg();
+    std::cout << "file1.tellg() " << file1.tellg()  << " file2.tellg() " << file2.tellg() << '\n';
+    return file1.tellg() > file2.tellg();
 }
 
 // Test fixture for ImageManager tests
@@ -28,6 +29,7 @@ protected:
         // Create a temporary directory for testing
         testDir = fs::temp_directory_path() / "image_manager_test";
         fs::create_directory(testDir);
+        
 
         // Create test images
         const std::string imgPath1 = (testDir / "image1.jpg").string();
@@ -71,18 +73,20 @@ TEST_F(ImageManagerTest, ResizeImages) {
     imageManager.resizeImages(testDir.string(), 50, 50);
 
     // Check if the files are resized correctly
-    ASSERT_TRUE(compareFileSize((testDir / "image1.jpg").string(), (testDir / "image1.jpg").string()));
-    ASSERT_TRUE(compareFileSize((testDir / "image2.jpg").string(), (testDir / "image2.jpg").string()));
-    ASSERT_TRUE(compareFileSize((testDir / "image3.jpg").string(), (testDir / "image3.jpg").string()));
+    std::cout << "Temp directory is " << testDir.string()  << "/image3.jpg" << '\n';
+    ASSERT_TRUE(compareFileSize((testDir  / "image1.jpg").string(), (testDir / "image1.jpeg").string()));
+    ASSERT_TRUE(compareFileSize((testDir  / "image2.jpg").string(), (testDir / "image2.jpeg").string()));
+    ASSERT_TRUE(compareFileSize((testDir  / "image3.jpg").string(), (testDir / "image3.jpeg").string()));
+    
 }
 
 TEST_F(ImageManagerTest, ScaleImages) {
     imageManager.scaleImages(testDir.string(), 0.5);
 
     // Check if the files are scaled correctly
-    ASSERT_TRUE(compareFileSize((testDir / "image1.jpg").string(), (testDir / "image1.jpg").string()));
-    ASSERT_TRUE(compareFileSize((testDir / "image2.jpg").string(), (testDir / "image2.jpg").string()));
-    ASSERT_TRUE(compareFileSize((testDir / "image3.jpg").string(), (testDir / "image3.jpg").string()));
+    ASSERT_TRUE(compareFileSize((testDir / "image1.jpg").string(), (testDir / "image1.jpeg").string()));
+    ASSERT_TRUE(compareFileSize((testDir / "image2.jpg").string(), (testDir / "image2.jpeg").string()));
+    ASSERT_TRUE(compareFileSize((testDir / "image3.jpg").string(), (testDir / "image3.jpeg").string()));
 }
 
 int main(int argc, char** argv) {
