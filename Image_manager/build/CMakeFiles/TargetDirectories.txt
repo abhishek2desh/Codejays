@@ -1,4 +1,0 @@
-C:/Users/user/Documents/Projects/CodeJays/Image_manager/build/CMakeFiles/image_manager.dir
-C:/Users/user/Documents/Projects/CodeJays/Image_manager/build/CMakeFiles/image_manager_test.dir
-C:/Users/user/Documents/Projects/CodeJays/Image_manager/build/CMakeFiles/ALL_BUILD.dir
-C:/Users/user/Documents/Projects/CodeJays/Image_manager/build/CMakeFiles/ZERO_CHECK.dir
